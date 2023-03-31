@@ -5,14 +5,37 @@
   <version>0.0.1</version>
   <packaging>war</packaging>
   <name>Servlet_Study_20230331</name>
+  
+  <dependencies>
+	  
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.24</version>
+		<scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.tomcat</groupId>
+	    <artifactId>tomcat-jsp-api</artifactId>
+	    <version>9.0.73</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>2.10.1</version>
+	</dependency>
+	 
+  </dependencies>
+  
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+       	  <release>11</release>
         </configuration>
       </plugin>
       <plugin>
