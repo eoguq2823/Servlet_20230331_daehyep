@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -57,12 +55,13 @@ public class CarInfo extends HttpServlet {
 		String requestJson = bufferedReader.lines().collect(Collectors.joining());
 		
 		Gson gson = new Gson();
-		List<Map<String, String>> requestMap = gson.fromJson(requestJson, List.class);
+		List<Map<String, String>> requestData = gson.fromJson(requestJson, List.class);
 		
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		requestMap.forEach(obj -> {
+		
+		requestData.forEach(obj -> {
 			System.out.println("id(" + obj.get("id") + "):" + obj.get("model"));
 			out.println("id(" + obj.get("id") + "):" + obj.get("model"));
 		});
