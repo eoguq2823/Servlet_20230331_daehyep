@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/auth/signin" method="post"> <!-- 메소드를 포스트적어놔야한다. -->
+	<!-- name을 꼭 써줘야한다. 아니면 못 가져온다. -->
+		<input type="text" name="username" placeholder="username">
+		<input type="password" name="password" placeholder="password">
+		<button type="submit">로그인</button>
+	</form>
+</body>
+</html>
