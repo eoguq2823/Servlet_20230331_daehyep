@@ -3,6 +3,7 @@ package com.study.servlet.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import com.study.servlet.entity.User;
 import com.study.servlet.util.DBConnectionMgr;
@@ -26,7 +27,38 @@ public class UserRepositoryImpl implements UserRepository{
 	}
 	@Override
 	public int save(User user) {
-		return 0;
+		int successCount = 0;
+		
+		String sql = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "insert into user_mst\r\n"
+					+ "values (0, ?, ?, ?, ?)";
+			
+			pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			pstmt.setString(1, user.getUsername());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getName());
+			pstmt.setString(4, user.getEmail());
+			
+			successCount = pstmt.executeUpdate();
+			
+//			rs = pstmt.getGeneratedKeys();
+//			
+//			if(rs.next()) {
+//				user.setUserId(rs.getInt(1));
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return successCount;
 	}
 
 	@Override

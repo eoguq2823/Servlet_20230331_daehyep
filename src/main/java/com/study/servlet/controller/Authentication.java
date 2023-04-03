@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.mysql.cj.jdbc.ha.BestResponseTimeBalanceStrategy;
 import com.study.servlet.Dto.RequestDto;
 import com.study.servlet.Dto.ResponseDto;
 import com.study.servlet.entity.User;
@@ -62,12 +63,17 @@ public class Authentication extends HttpServlet {
 		
 		if(duplicatedFlag) {
 //			true == 중복, false == 가입가능
-			ResponseDto<Boolean> responseDto = new ResponseDto<Boolean>(400, "duplicated username", duplicatedFlag);
+			ResponseDto<Boolean> responseDto = 
+					new ResponseDto<Boolean>(400, "duplicated username", duplicatedFlag);
 			out.println(gson.toJson(responseDto));
 			return; // 리턴안해주면 밑에까지 계속타고 내려간다.
 		}
-		userService.addUser(user);
 		
+		ResponseDto<Integer> responseDto = 
+			new ResponseDto<Integer>(201, "signup", userService.addUser(user));
+		out.println(gson.toJson(responseDto));
+		
+//		userService.addUser(user);
 		
 	}
 }
